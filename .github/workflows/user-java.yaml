@@ -4,6 +4,7 @@ env:
   registry: openhackcnm1dks4acr.azurecr.io
   repository: devopsoh/api-user-java
   docker_path: apis/user-java
+  webapp_name: openhackcnm1dks4userjava
   
 on: 
   push:
@@ -69,6 +70,21 @@ jobs:
 
     - name: Docker Push
       run: docker push $registry/$repository:${{github.run_number}}  
+
+    - name: Azure authentication
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - uses: azure/webapps-deploy@v2
+      with:
+        slot-name: staging
+        app-name: ${{ env.webapp_name }}
+        images: '${{ env.registry }}/${{ env.repository }}:${{ github.run_number }}'
+
+    - name: Azure logout
+      run: |
+        az logout
 
     - uses: actions/github-script@0.9.0
       if: failure()
