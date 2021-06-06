@@ -36,4 +36,13 @@ public interface HealthcheckApi {
         method = RequestMethod.GET)
     ResponseEntity<Healthcheck> healthcheckUserGet();
 
+    @ApiOperation(value = "", nickname = "healthcheckUserGet1", notes = "Returns healthcheck for systems looking to ensure API is up and operational", response = Healthcheck.class, tags={  })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Service is healthy", response = Healthcheck.class),
+        @ApiResponse(code = 200, message = "An error occurred", response = ErrorResponseDefault.class) })
+    @RequestMapping(value = "/healthcheck1/user-java",
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    ResponseEntity<Healthcheck> healthcheckUserGet1();
+
 }
