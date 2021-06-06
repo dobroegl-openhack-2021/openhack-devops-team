@@ -2,8 +2,9 @@ name: Java User API - CI
 
 env:
   registry: openhackcnm1dks4acr.azurecr.io
-  docker_path: devopsoh/api-user-java
-
+  repository: devopsoh/api-user-java
+  docker_path: apis/user-java
+  
 on: 
   push:
     branches:
